@@ -2,12 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
-
-const searchClient = algoliasearch(
-  'GNQ9R5HZ2F',
-  '908a8481338876dff8e5939d1b005fb6'
-);
+import { InstantSearch, SearchBox, Hits, Configure } from 'react-instantsearch-dom';
 
 const Hit = ({hit}) =>
   <div className="hit">
@@ -17,6 +12,18 @@ const Hit = ({hit}) =>
   </div>
 
 export default function Home() {
+  const searchClient = algoliasearch(
+    'GNQ9R5HZ2F',
+    '908a8481338876dff8e5939d1b005fb6'
+  );
+
+  // const searchClient = algoliasearch(
+  //   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || '',
+  //   process.env.ALGOLIA_ADMIN_API_KEY || ''
+  // );
+
+  const indexName = process.env.NEXT_PUBLIC_ALGOLIA_INDEX || '';
+
   return (
     <div className={styles.container}>
       <Head>
@@ -36,11 +43,13 @@ export default function Home() {
         </p>
 
         <InstantSearch
-          indexName="nextflix-clone"
+          indexName={indexName}
           searchClient={searchClient}
         >
+          <Configure hitsPerPage={5} />
           <SearchBox />
-          <Hits hitComponent={Hit}/>
+          <Hits />
+          {/* <Hits hitComponent={Hit}/> */}
         </InstantSearch>
 
         <div className={styles.grid}>
