@@ -5,9 +5,16 @@ import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 
 const searchClient = algoliasearch(
-  'latency',
-  '6be0576ff61c053d5f9a3225e2a90f76'
+  'GNQ9R5HZ2F',
+  '908a8481338876dff8e5939d1b005fb6'
 );
+
+const Hit = ({hit}) =>
+  <div className="hit">
+    <div className="hit-image">
+    <img src={hit.image} />
+    </div>
+  </div>
 
 export default function Home() {
   return (
@@ -29,11 +36,11 @@ export default function Home() {
         </p>
 
         <InstantSearch
-          indexName="bestbuy"
+          indexName="nextflix-clone"
           searchClient={searchClient}
         >
           <SearchBox />
-          <Hits />
+          <Hits hitComponent={Hit}/>
         </InstantSearch>
 
         <div className={styles.grid}>
